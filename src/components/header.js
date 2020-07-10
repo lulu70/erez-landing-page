@@ -1,12 +1,11 @@
 import React from "react"
-import PhoneSVG from "../../content/assets/phone.svg"
 import Navbar from "./navbar"
 import StyledLink from "./styledLink"
 import styled from "styled-components"
-
+import Logo from "../assets/logo.svg"
+import PhoneLink from "./phoneLink"
 const StyledHeader = styled.header`
   margin-bottom: 1.45rem;
-  text-align: right;
   position: sticky;
   top: 0;
   z-index: 2;
@@ -25,30 +24,20 @@ const Row = styled.div`
   align-items: center;
   padding: 1.45rem 1.0875rem;
 `
-const H1 = styled.h1`
+const LogoContainer = styled.div`
   margin: 0;
   flex: 1;
-`
-const PhoneLinkContainer = styled.div`
-  display: flex;
-  align-items: center;
-`
-const A = styled.a`
-  margin-left: 0.5rem;
-  color: black;
-  text-decoration: black;
 `
 const Header = ({ siteTitle }) => (
   <StyledHeader>
     <Container>
       <Row>
-        <H1>
-          <StyledLink to="/">{siteTitle}</StyledLink>
-        </H1>
-        <PhoneLinkContainer>
-          <PhoneSVG />
-          <A href="tel:03-67911516">טלפון: 03-6791151</A>
-        </PhoneLinkContainer>
+        <LogoContainer>
+          <StyledLink to="/">
+            <Logo />
+          </StyledLink>
+        </LogoContainer>
+        <PhoneLink />
       </Row>
       <Navbar />
     </Container>
