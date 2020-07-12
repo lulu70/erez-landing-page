@@ -1,3 +1,4 @@
+require("dotenv").config()
 module.exports = {
   siteMetadata: {
     title: `ארז הקרנות`,
@@ -5,6 +6,25 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    {
+      resolve: `gatsby-source-prismic`,
+      options: {
+        repositoryName: `erez`,
+        accessToken: `${process.env.PRISMIC_API_KEY}`,
+        // linkResolver: ({ node, key, value }) => post => `/${post.uid}`,
+        schemas: {
+          page: require("./src/schemas/page.json"),
+        },
+      },
+    },
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: `3ogs7fkdpc7c`,
+        // Learn about environment variables: https://gatsby.dev/env-vars
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+      },
+    },
     {
       resolve: "gatsby-plugin-react-svg",
       options: {

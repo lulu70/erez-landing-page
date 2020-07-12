@@ -68,7 +68,12 @@ function SEO({ description, lang, meta, title }) {
           content: metaDescription,
         },
       ].concat(meta)}
-    />
+    >
+      <script
+        type="text/javascript"
+        src="https://static.cdn.prismic.io/prismic.min.js?new=true"
+      ></script>
+    </Helmet>
   )
 }
 

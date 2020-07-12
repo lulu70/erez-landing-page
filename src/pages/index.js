@@ -13,26 +13,20 @@ const StyledImage = styled(GatsbyImage)`
 `
 const MainSection = styled.section`
   display: flex;
-  flex-direction: row-reverse;
   margin-top: 1rem;
 `
 const LinksSection = styled.section`
   display: flex;
-  /* flex-direction: row-reverse; */
   margin-top: 1rem;
-  align-items: center;
   border-radius: 1rem;
-  /* background-color: lightgray; */
   padding: 1rem;
 `
 const H1 = styled.h1`
-  /* background-color: lightgray; */
   margin-top: 1rem;
   padding: 1rem;
   border-radius: 1rem;
 `
-const P = styled.p`
-  /* background-color: lightgray; */
+const Description = styled.div`
   border-radius: 1rem;
   padding: 1rem;
   margin: 0 0 0 1rem;
@@ -47,35 +41,53 @@ const A = styled.a`
   color: black;
   margin-left: 1rem;
 `
-const IndexPage = ({ data }) => (
-  <Layout>
-    <SEO title="Home" />
-    <StyledImage fluid={data.images.nodes[0].fluid} />
-    <H1>ארז אירועים</H1>
-    <MainSection>
-      <P>
-        אוכל כשר מהדרין בהשגחת הרב לנדאו
-        <br /> באולם ניתן לחגוג אירועים ושמחות כגון: חתונה, בר מצווה, בת מצווה ,
-        בריתות, אירוסין ועוד
-      </P>
-      <StyledImage fluid={data.images.nodes[1].fluid} />
-    </MainSection>
-    <LinksSection>
-      <PhoneLink />
-      <EmailContainer>
-        <FaEnvelope />
-        <A href="mailto: erezraymond@gmail.com">erezraymond@gmail.com</A>
-      </EmailContainer>
-    </LinksSection>
-  </Layout>
-)
-
+const IndexPage = ({ data }) => {
+  const page = data.page.data
+  React.useEffect(() => {
+    window.prismic = {
+      endpoint: "https://erez.cdn.prismic.io/api/v2",
+    }
+  }, [])
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <StyledImage fluid={page.featured_image.fluid} />
+      <H1>{page.title.text}</H1>
+      <MainSection>
+        <Description
+          dangerouslySetInnerHTML={{ __html: page.description.html }}
+        />
+        <StyledImage fluid={page.small_image.fluid} />
+      </MainSection>
+      <LinksSection>
+        <PhoneLink />
+        <EmailContainer>
+          <A href="mailto: erezraymond@gmail.com">erezraymond@gmail.com</A>
+          <FaEnvelope />
+        </EmailContainer>
+      </LinksSection>
+    </Layout>
+  )
+}
 export const indexPageQuery = graphql`
   query {
-    images: allImageSharp {
-      nodes {
-        fluid(quality: 100) {
-          ...GatsbyImageSharpFluid_withWebp_noBase64
+    page: prismicPage {
+      data {
+        title {
+          text
+        }
+        description {
+          html
+        }
+        featured_image {
+          fluid {
+            ...GatsbyPrismicImageFluid_noBase64
+          }
+        }
+        small_image {
+          fluid {
+            ...GatsbyPrismicImageFluid_noBase64
+          }
         }
       }
     }

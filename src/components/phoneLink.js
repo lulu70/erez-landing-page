@@ -14,8 +14,8 @@ const A = styled.a`
 const SocialLink = () => {
   return (
     <PhoneLinkContainer>
-      <FaPhoneAlt />
       <A href="tel:03-67911516">טלפון: 03-6791151</A>
+      <FaPhoneAlt />
     </PhoneLinkContainer>
   )
 }

@@ -20,7 +20,6 @@ const Container = styled.div`
 `
 const Row = styled.div`
   display: flex;
-  flex-direction: row-reverse;
   align-items: center;
   padding: 1.45rem 1.0875rem;
 `
