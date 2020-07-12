@@ -43,11 +43,6 @@ const A = styled.a`
 `
 const IndexPage = ({ data }) => {
   const page = data.page.data
-  React.useEffect(() => {
-    window.prismic = {
-      endpoint: "https://erez.cdn.prismic.io/api/v2",
-    }
-  }, [])
   return (
     <Layout>
       <SEO title="Home" />

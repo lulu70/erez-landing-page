@@ -7,6 +7,13 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: "gatsby-plugin-prismic-preview",
+      options: {
+        repositoryName: "erez",
+        path: "/preview",
+      },
+    },
+    {
       resolve: `gatsby-source-prismic`,
       options: {
         repositoryName: `erez`,
