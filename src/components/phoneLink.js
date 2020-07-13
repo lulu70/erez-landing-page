@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { FaPhoneAlt } from "react-icons/fa"
+import { graphql, useStaticQuery } from "gatsby"
 
 const PhoneLinkContainer = styled.div`
   display: flex;
@@ -11,13 +12,22 @@ const A = styled.a`
   color: black;
   text-decoration: black;
 `
-const SocialLink = () => {
+const PhoneLink = () => {
+  const data = useStaticQuery(graphql`
+    {
+      page: contentfulPage {
+        phoneNumber
+      }
+    }
+  `)
   return (
     <PhoneLinkContainer>
-      <A href="tel:03-67911516">טלפון: 03-6791151</A>
+      <A
+        href={`tel:${data.page.phoneNumber}`}
+      >{`טלפון: ${data.page.phoneNumber}`}</A>
       <FaPhoneAlt />
     </PhoneLinkContainer>
   )
 }
 
-export default SocialLink
+export default PhoneLink
