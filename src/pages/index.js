@@ -6,7 +6,7 @@ import SEO from "../components/seo"
 import styled from "styled-components"
 import PhoneLink from "../components/phoneLink"
 import { FaEnvelope } from "react-icons/fa"
-
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 const StyledImage = styled(GatsbyImage)`
   border-radius: 1rem;
   flex: 1;
@@ -17,6 +17,7 @@ const MainSection = styled.section`
 `
 const LinksSection = styled.section`
   display: flex;
+  flex-direction: column;
   margin-top: 1rem;
   border-radius: 1rem;
   padding: 1rem;
@@ -42,17 +43,17 @@ const A = styled.a`
   margin-left: 1rem;
 `
 const IndexPage = ({ data }) => {
-  const page = data.page.data
+  const page = data.page
   return (
     <Layout>
       <SEO title="Home" />
-      <StyledImage fluid={page.featured_image.fluid} />
-      <H1>{page.title.text}</H1>
+      <H1>{page.title}</H1>
+      <StyledImage fluid={page.featuredImage.fluid} />
       <MainSection>
-        <Description
-          dangerouslySetInnerHTML={{ __html: page.description.html }}
-        />
-        <StyledImage fluid={page.small_image.fluid} />
+        <Description>
+          {documentToReactComponents(page.description.json)}
+        </Description>
+        <StyledImage fluid={page.smallImage.fluid} />
       </MainSection>
       <LinksSection>
         <PhoneLink />
@@ -66,23 +67,19 @@ const IndexPage = ({ data }) => {
 }
 export const indexPageQuery = graphql`
   query {
-    page: prismicPage {
-      data {
-        title {
-          text
+    page: contentfulPage {
+      title
+      description {
+        json
+      }
+      featuredImage {
+        fluid {
+          ...GatsbyContentfulFluid_withWebp_noBase64
         }
-        description {
-          html
-        }
-        featured_image {
-          fluid {
-            ...GatsbyPrismicImageFluid_noBase64
-          }
-        }
-        small_image {
-          fluid {
-            ...GatsbyPrismicImageFluid_noBase64
-          }
+      }
+      smallImage {
+        fluid {
+          ...GatsbyContentfulFluid_withWebp_noBase64
         }
       }
     }

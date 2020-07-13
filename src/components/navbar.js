@@ -7,7 +7,6 @@ const Nav = styled.nav`
 `
 const Ul = styled.ul`
   display: flex;
-  flex-direction: row-reverse;
   align-items: center;
   width: 100%;
   padding: 0.5rem;
