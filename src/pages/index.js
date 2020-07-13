@@ -58,7 +58,7 @@ const IndexPage = ({ data }) => {
       <LinksSection>
         <PhoneLink />
         <EmailContainer>
-          <A href="mailto: erezraymond@gmail.com">erezraymond@gmail.com</A>
+          <A href={`mailto: ${page.email}`}>{page.email}</A>
           <FaEnvelope />
         </EmailContainer>
       </LinksSection>
@@ -72,6 +72,7 @@ export const indexPageQuery = graphql`
       description {
         json
       }
+      email
       featuredImage {
         fluid {
           ...GatsbyContentfulFluid_withWebp_noBase64
