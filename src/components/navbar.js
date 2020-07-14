@@ -37,13 +37,16 @@ const Navbar = () => {
   return (
     <Nav>
       <Ul>
-        {data.pages.nodes.map(page => (
-          <Li key={page.id}>
-            <NavLink activeStyle={linkActiveStyle} to={page.slug}>
-              {page.slug === "/" ? "ראשי" : page.title}
-            </NavLink>
-          </Li>
-        ))}
+        {data.pages.nodes.map(page => {
+          const to = page.slug === "/" ? "/" : `/${page.slug}/`
+          return (
+            <Li key={page.id}>
+              <NavLink activeStyle={linkActiveStyle} to={to}>
+                {page.slug === "/" ? "ראשי" : page.title}
+              </NavLink>
+            </Li>
+          )
+        })}
       </Ul>
     </Nav>
   )

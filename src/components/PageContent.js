@@ -27,9 +27,11 @@ const PageLink = styled(StyledLink)`
   padding: 0;
 `
 const PageContent = ({ page }) => {
+  const to = page.slug === "/" ? "/" : `/${page.slug}/`
+
   return (
     <>
-      <PageLink to={page.slug}>
+      <PageLink to={to}>
         <H1>{page.title}</H1>
       </PageLink>
       <StyledImage fluid={page.featuredImage.fluid} />
