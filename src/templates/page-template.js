@@ -13,6 +13,8 @@ export const indexPageQuery = graphql`
   query($slug: String!) {
     page: contentfulPage(slug: { eq: $slug }) {
       title
+      slug
+      id
       description {
         json
       }
