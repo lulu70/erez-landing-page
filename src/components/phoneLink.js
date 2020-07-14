@@ -15,7 +15,7 @@ const A = styled.a`
 const PhoneLink = () => {
   const data = useStaticQuery(graphql`
     {
-      page: contentfulPage {
+      contactDetails: contentfulContactDetails {
         phoneNumber
       }
     }
@@ -23,8 +23,8 @@ const PhoneLink = () => {
   return (
     <PhoneLinkContainer>
       <A
-        href={`tel:${data.page.phoneNumber}`}
-      >{`טלפון: ${data.page.phoneNumber}`}</A>
+        href={`tel:${data.contactDetails.phoneNumber}`}
+      >{`טלפון: ${data.contactDetails.phoneNumber}`}</A>
       <FaPhoneAlt />
     </PhoneLinkContainer>
   )

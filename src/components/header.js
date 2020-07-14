@@ -27,7 +27,7 @@ const LogoContainer = styled.div`
   margin: 0;
   flex: 1;
 `
-const Header = ({ siteTitle }) => (
+const Header = () => (
   <StyledHeader>
     <Container>
       <Row>

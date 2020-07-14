@@ -1,7 +1,7 @@
 import React from "react"
 import StyledLink from "./styledLink"
 import styled from "styled-components"
-
+import { useStaticQuery, graphql } from "gatsby"
 const Nav = styled.nav`
   background-color: #292927;
 `
@@ -20,27 +20,30 @@ const NavLink = styled(StyledLink)`
   color: #b4983b;
 `
 const Navbar = () => {
+  const data = useStaticQuery(graphql`
+    {
+      pages: allContentfulPage(sort: { fields: order, order: ASC }) {
+        nodes {
+          slug
+          title
+          id
+        }
+      }
+    }
+  `)
   const linkActiveStyle = {
     color: "white",
   }
   return (
     <Nav>
       <Ul>
-        <Li>
-          <NavLink activeStyle={linkActiveStyle} to="/">
-            ראשי
-          </NavLink>
-        </Li>
-        <Li>
-          <NavLink activeStyle={linkActiveStyle} to="/gallery">
-            גלריה
-          </NavLink>
-        </Li>
-        <Li>
-          <NavLink activeStyle={linkActiveStyle} to="/contact">
-            צור קשר
-          </NavLink>
-        </Li>
+        {data.pages.nodes.map(page => (
+          <Li key={page.id}>
+            <NavLink activeStyle={linkActiveStyle} to={page.slug}>
+              {page.slug === "/" ? "ראשי" : page.title}
+            </NavLink>
+          </Li>
+        ))}
       </Ul>
     </Nav>
   )

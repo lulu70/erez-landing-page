@@ -1,37 +1,47 @@
 import React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
 import Header from "./header"
 import "./layout.css"
+import styled from "styled-components"
+import SEO from "./seo"
+import PageContent from "./PageContent"
+import PhoneLink from "./phoneLink"
+import EmailLink from "./EmailLink"
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
+const Main = styled.main`
+  margin: 0 auto;
+  max-width: 960px;
+`
+const LinksSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  padding: 1rem;
+`
+const Layout = ({ children, page, otherPages, location }) => {
+  const ishomePage = location.pathname === "/"
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-        }}
-      >
-        <main>{children}</main>
-      </div>
+      <SEO title={ishomePage ? "ראשי" : page.title} />
+      <Header />
+      <Main>
+        {ishomePage ? (
+          <>
+            <PageContent page={page} />
+            {otherPages.map(page => (
+              <PageContent page={page} key={page.id} />
+            ))}
+          </>
+        ) : (
+          <PageContent page={page} />
+        )}
+        <LinksSection>
+          <PhoneLink />
+          <EmailLink />
+        </LinksSection>
+      </Main>
     </>
   )
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
 }
 
 export default Layout
