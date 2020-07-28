@@ -12,6 +12,10 @@ const Ul = styled.ul`
   padding: 0.5rem;
   margin: 0;
   list-style: none;
+  @media (max-width: 576px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `
 const Li = styled.li`
   margin: 0 0 0 1rem;
