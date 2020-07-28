@@ -4,35 +4,32 @@ import Layout from "../components/layout"
 
 const IndexPage = ({ data, location }) => {
   const page = data.page
-  const otherPages = data.otherPages.nodes
-  return (
-    <Layout page={page} otherPages={otherPages} location={location}></Layout>
-  )
+  const pages = data.allContentfulPageOrder.nodes[0].pages
+  return <Layout page={page} pages={pages} location={location}></Layout>
 }
 export const indexPageQuery = graphql`
   query {
-    otherPages: allContentfulPage(
-      filter: { slug: { ne: "/" } }
-      sort: { fields: order, order: ASC }
-    ) {
+    allContentfulPageOrder {
       nodes {
-        id
-        slug
-        title
-        featuredImage {
-          fluid {
-            ...GatsbyContentfulFluid_withWebp_noBase64
-          }
+        pages {
+          id
+          slug
           title
-        }
-        smallImage {
-          fluid {
-            ...GatsbyContentfulFluid_withWebp_noBase64
+          featuredImage {
+            fluid {
+              ...GatsbyContentfulFluid_withWebp_noBase64
+            }
+            title
           }
-          title
-        }
-        description {
-          json
+          smallImage {
+            fluid {
+              ...GatsbyContentfulFluid_withWebp_noBase64
+            }
+            title
+          }
+          description {
+            json
+          }
         }
       }
     }

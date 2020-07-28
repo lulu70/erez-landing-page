@@ -22,11 +22,13 @@ const NavLink = styled(StyledLink)`
 const Navbar = () => {
   const data = useStaticQuery(graphql`
     {
-      pages: allContentfulPage(sort: { fields: order, order: ASC }) {
+      allContentfulPageOrder {
         nodes {
-          slug
-          title
-          id
+          pages {
+            slug
+            title
+            id
+          }
         }
       }
     }
@@ -37,8 +39,10 @@ const Navbar = () => {
   return (
     <Nav>
       <Ul>
-        {data.pages.nodes.map(page => {
-          const to = page.slug === "/" ? "/" : `/${page.slug}`
+        {data.allContentfulPageOrder.nodes[0].pages.map(page => {
+          const isInDevelopment = process.env.NODE_ENV === "development"
+          const to =
+            page.slug === "/" ? "/" : `/${page.slug}${isInDevelopment && "/"}`
           return (
             <Li key={page.id}>
               <NavLink activeStyle={linkActiveStyle} to={to}>

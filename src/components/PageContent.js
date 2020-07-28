@@ -27,8 +27,8 @@ const PageLink = styled(StyledLink)`
   padding: 0;
 `
 const PageContent = ({ page }) => {
-  const to = page.slug === "/" ? "/" : `/${page.slug}/`
-
+  const isInDevelopment = process.env.NODE_ENV === "development"
+  const to = page.slug === "/" ? "/" : `/${page.slug}${isInDevelopment && "/"}`
   return (
     <>
       <PageLink to={to}>

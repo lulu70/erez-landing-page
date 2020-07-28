@@ -18,7 +18,7 @@ const LinksSection = styled.section`
   border-radius: 1rem;
   padding: 1rem;
 `
-const Layout = ({ children, page, otherPages, location }) => {
+const Layout = ({ children, page, pages, location }) => {
   const ishomePage = location.pathname === "/"
   return (
     <>
@@ -27,8 +27,7 @@ const Layout = ({ children, page, otherPages, location }) => {
       <Main>
         {ishomePage ? (
           <>
-            <PageContent page={page} />
-            {otherPages.map(page => (
+            {pages.map(page => (
               <PageContent page={page} key={page.id} />
             ))}
           </>
