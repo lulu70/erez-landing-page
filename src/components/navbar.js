@@ -42,7 +42,9 @@ const Navbar = () => {
         {data.allContentfulPageOrder.nodes[0].pages.map(page => {
           const isInDevelopment = process.env.NODE_ENV === "development"
           const to =
-            page.slug === "/" ? "/" : `/${page.slug}${isInDevelopment && "/"}`
+            page.slug === "/"
+              ? "/"
+              : `/${page.slug}${isInDevelopment ? "/" : ""}`
           return (
             <Li key={page.id}>
               <NavLink activeStyle={linkActiveStyle} to={to}>

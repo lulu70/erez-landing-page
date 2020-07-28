@@ -28,7 +28,8 @@ const PageLink = styled(StyledLink)`
 `
 const PageContent = ({ page }) => {
   const isInDevelopment = process.env.NODE_ENV === "development"
-  const to = page.slug === "/" ? "/" : `/${page.slug}${isInDevelopment && "/"}`
+  const to =
+    page.slug === "/" ? "/" : `/${page.slug}${isInDevelopment ? "/" : ""}`
   return (
     <>
       <PageLink to={to}>
