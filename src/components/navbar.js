@@ -38,7 +38,7 @@ const Navbar = () => {
     <Nav>
       <Ul>
         {data.pages.nodes.map(page => {
-          const to = page.slug === "/" ? "/" : `/${page.slug}/`
+          const to = page.slug === "/" ? "/" : `/${page.slug}`
           return (
             <Li key={page.id}>
               <NavLink activeStyle={linkActiveStyle} to={to}>

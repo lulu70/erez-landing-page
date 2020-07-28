@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "erez-raymond",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "A personal site for erez raymond",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Lior Cohen",
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^14.1.1",
     "@contentful/rich-text-types": "^14.1.1",
