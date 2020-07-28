@@ -6,6 +6,13 @@ const StyledLink = styled(Link)`
   color: black;
   padding: 0.3rem;
   border-radius: 5px;
+  :hover {
+    text-decoration: none;
+    color: black;
+    padding: 0.3rem;
+    border-radius: 5px;
+    list-style: none;
+  }
 `
 export default props => {
   return <StyledLink {...props} />
