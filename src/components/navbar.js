@@ -15,6 +15,7 @@ const Ul = styled.ul`
   @media (max-width: 576px) {
     flex-direction: column;
     align-items: flex-start;
+    justify-content: space-between;
   }
 `
 const Li = styled.li`
@@ -22,6 +23,9 @@ const Li = styled.li`
 `
 const NavLink = styled(StyledLink)`
   color: #b4983b;
+  :hover {
+    color: white;
+  }
 `
 const MenuLine = styled.div`
   width: 35px;
@@ -34,6 +38,11 @@ const MenuButton = styled.button`
   :focus {
     border-color: #b4983b;
     box-shadow: 0 0 0 0.05rem #b4983b;
+  }
+  :hover {
+    div {
+      background-color: #b4983b;
+    }
   }
 `
 const Navbar = () => {
@@ -60,6 +69,7 @@ const Navbar = () => {
   const spring = useSpring({
     from: {
       opacity: 0,
+      height: window.matchMedia("(max-width: 576px)").matches ? 0 : 54,
     },
     opacity: isMenuOpen ? 1 : 0,
     height:
