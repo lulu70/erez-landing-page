@@ -36,10 +36,13 @@ const MenuLine = styled.div`
   margin: 9px 0;
 `
 const MenuButton = styled.button`
+  background-color: transparent;
+  border: 0;
+  margin: 0.1rem;
   :active,
   :focus {
-    border-color: #b4983b;
-    box-shadow: 0 0 0 0.05rem #b4983b;
+    outline: none;
+    box-shadow: 0 0 0.2rem 0.1rem #b4983b;
   }
   :hover {
     div {
@@ -104,7 +107,6 @@ const Navbar = () => {
       {isSmallScreen && (
         <MenuButton
           type="button"
-          className="btn"
           onClick={() => {
             setIsMenuOpen(!isMenuOpen)
           }}
