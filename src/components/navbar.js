@@ -2,7 +2,7 @@ import React from "react"
 import StyledLink from "./styledLink"
 import styled from "styled-components"
 import { useStaticQuery, graphql } from "gatsby"
-
+import { useSpring, animated } from "react-spring"
 const Nav = styled.nav`
   background-color: #292927;
 `
@@ -31,9 +31,9 @@ const NavLink = styled(StyledLink)`
 `
 const MenuLine = styled.div`
   width: 35px;
-  height: 5px;
+  height: 2px;
   background-color: white;
-  margin: 6px 0;
+  margin: 9px 0;
 `
 const MenuButton = styled.button`
   :active,
@@ -48,9 +48,18 @@ const MenuButton = styled.button`
   }
 `
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
-  const [isSmallScreen, setIsSmallScreen] = React.useState(false)
+  const [isMenuOpen, setIsMenuOpen] = React.useState(
+    typeof window !== `undefined`
+      ? !window.matchMedia("(max-width: 576px)").matches
+      : ""
+  )
+  const [isSmallScreen, setIsSmallScreen] = React.useState(
+    typeof window !== `undefined`
+      ? window.matchMedia("(max-width: 576px)").matches
+      : ""
+  )
 
+  // adds media query listeners
   React.useEffect(() => {
     const mediaQueryList = window.matchMedia("(max-width: 576px)")
     const listener = () => {
@@ -82,9 +91,14 @@ const Navbar = () => {
     }
   `)
 
+  const spring = useSpring({
+    opacity: isMenuOpen ? 1 : 0,
+    maxHeight: isMenuOpen ? 100 : 0,
+  })
   const linkActiveStyle = {
     color: "white",
   }
+  const AnimatedLi = animated(Li)
   return (
     <Nav>
       {isSmallScreen && (
@@ -108,13 +122,11 @@ const Navbar = () => {
               ? "/"
               : `/${page.slug}${isInDevelopment ? "/" : ""}`
           return (
-            isMenuOpen && (
-              <Li key={page.id}>
-                <NavLink activeStyle={linkActiveStyle} to={to}>
-                  {page.slug === "/" ? "ראשי" : page.title}
-                </NavLink>
-              </Li>
-            )
+            <AnimatedLi key={page.id} style={spring}>
+              <NavLink activeStyle={linkActiveStyle} to={to}>
+                {page.slug === "/" ? "ראשי" : page.title}
+              </NavLink>
+            </AnimatedLi>
           )
         })}
       </Ul>

@@ -6,6 +6,7 @@ import SEO from "./seo"
 import PageContent from "./PageContent"
 import PhoneLink from "./phoneLink"
 import EmailLink from "./EmailLink"
+import { useSpring, animated } from "react-spring"
 
 const Main = styled.main`
   margin: 0 auto;
@@ -19,9 +20,16 @@ const LinksSection = styled.section`
   padding: 1rem;
 `
 const Layout = ({ children, page, pages, location }) => {
+  //page load animation
+  const springStyles = useSpring({
+    from: {
+      opacity: 0,
+    },
+    opacity: 1,
+  })
   const ishomePage = location.pathname === "/"
   return (
-    <>
+    <animated.div style={springStyles}>
       <SEO title={ishomePage ? "ראשי" : page.title} />
       <Header />
       <Main>
@@ -39,7 +47,7 @@ const Layout = ({ children, page, pages, location }) => {
           <EmailLink />
         </LinksSection>
       </Main>
-    </>
+    </animated.div>
   )
 }
 
