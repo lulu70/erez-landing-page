@@ -2,7 +2,7 @@ import React from "react"
 import StyledLink from "./styledLink"
 import styled from "styled-components"
 import { useStaticQuery, graphql } from "gatsby"
-import { useSpring, animated } from "react-spring"
+
 const Nav = styled.nav`
   background-color: #292927;
 `
@@ -12,10 +12,12 @@ const Ul = styled.ul`
   width: 100%;
   margin: 0;
   list-style: none;
+  padding: 0.5rem;
   @media (max-width: 576px) {
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
+    padding: 0;
   }
 `
 const Li = styled.li`
@@ -66,15 +68,6 @@ const Navbar = () => {
       mediaQueryList.removeListener(listener)
     }
   }, [])
-  const spring = useSpring({
-    from: {
-      opacity: 0,
-      height: window.matchMedia("(max-width: 576px)").matches ? 0 : 54,
-    },
-    opacity: isMenuOpen ? 1 : 0,
-    height:
-      isMenuOpen && isSmallScreen ? 150 : !isSmallScreen && isMenuOpen ? 54 : 0,
-  })
   const data = useStaticQuery(graphql`
     {
       allContentfulPageOrder {
@@ -92,7 +85,6 @@ const Navbar = () => {
   const linkActiveStyle = {
     color: "white",
   }
-  const AnimatedUl = animated(Ul)
   return (
     <Nav>
       {isSmallScreen && (
@@ -108,7 +100,7 @@ const Navbar = () => {
           <MenuLine />
         </MenuButton>
       )}
-      <AnimatedUl style={spring}>
+      <Ul>
         {data.allContentfulPageOrder.nodes[0].pages.map(page => {
           const isInDevelopment = process.env.NODE_ENV === "development"
           const to =
@@ -125,7 +117,7 @@ const Navbar = () => {
             )
           )
         })}
-      </AnimatedUl>
+      </Ul>
     </Nav>
   )
 }
