@@ -28,11 +28,12 @@ const Layout = ({ children, page, pages, location }) => {
     opacity: 1,
   })
   const ishomePage = location.pathname === "/"
+  const AnimatedMain = animated(Main)
   return (
-    <animated.div style={springStyles}>
+    <>
       <SEO title={ishomePage ? "ראשי" : page.title} />
       <Header />
-      <Main>
+      <AnimatedMain style={springStyles}>
         {ishomePage ? (
           <>
             {pages.map(page => (
@@ -46,8 +47,8 @@ const Layout = ({ children, page, pages, location }) => {
           <PhoneLink />
           <EmailLink />
         </LinksSection>
-      </Main>
-    </animated.div>
+      </AnimatedMain>
+    </>
   )
 }
 
